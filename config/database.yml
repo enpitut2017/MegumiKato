@@ -13,13 +13,20 @@ default: &default
   adapter: mysql2
   encoding: utf8
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
-  username: MegumiKato
-  password: hogejiro
+  username: root
+  password:
   host: db
 
-development:
-   <<: *default
-   database: myapp_development
+# development:
+#   <<: *default
+#   database: myapp_development
+development: &default
+  adapter: mysql2
+  database: mysql
+  pool: 5
+  username: root
+  password: hogejiro
+  host: db
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
