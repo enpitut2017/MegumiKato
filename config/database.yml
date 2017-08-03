@@ -10,10 +10,11 @@
 #   http://dev.mysql.com/doc/refman/5.7/en/old-client.html
 #
 default: &default
-  adapter: mysql2
+  # adapter: mysql2
+  adapter: postgresql
   encoding: utf8
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
-  username: root
+  username: fuga
   password: hogejiro
   host: db
 
@@ -21,10 +22,12 @@ default: &default
 #    <<: *default
 #    database: myapp_development
 development: &default
-  adapter: mysql2
+  # adapter: mysql2
+  adapter: postgresql
   database: mysql
+  # database: postgresql
   pool: 5
-  username: root
+  username: fuga
   password: hogejiro
   host: db
 
@@ -54,14 +57,14 @@ test:
 #   production:
 #     url: <%= ENV['DATABASE_URL'] %>
 #
-production:
-  <<: *default
-  database: myapp_production
-  username: myapp
-  password: <%= ENV['MYAPP_DATABASE_PASSWORD'] %>
+# production:
+#   <<: *default
+#   database: myapp_production
+#   username: myapp
+#   password: <%= ENV['MYAPP_DATABASE_PASSWORD'] %>
 production: &default
   database: mysql
-  username: root
+  username: fuga
   password: hogejiro
   host: db
 
@@ -69,9 +72,11 @@ production: &default
 #    <<: *default
 #    database: myapp_development
 development: &default
-  adapter: mysql2
+  # adapter: mysql2
+  adapter: postgresql
   database: mysql
+  # database: postgresql
   pool: 5
-  username: root
+  username: fuga
   password: hogejiro
   host: db
