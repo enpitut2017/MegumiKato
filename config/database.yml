@@ -14,8 +14,8 @@ default: &default
   adapter: postgresql
   encoding: utf8
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
-  username: fuga
-  password: hogejiro
+  username: root
+  password:
   host: db
 
 # development:
@@ -27,8 +27,8 @@ development: &default
   database: mysql
   # database: postgresql
   pool: 5
-  username: fuga
-  password: hogejiro
+  username: root
+  password:
   host: db
 
 # Warning: The database defined as "test" will be erased and
@@ -65,8 +65,8 @@ test:
 production: &default
   adapter: postgresql
   database: mysql
-  username: fuga
-  password: hogejiro
+  username: root
+  password:
   host: db
 
 # development:
@@ -78,6 +78,6 @@ development: &default
   database: mysql
   # database: postgresql
   pool: 5
-  username: fuga
-  password: hogejiro
+  username: root
+  password:
   host: db
