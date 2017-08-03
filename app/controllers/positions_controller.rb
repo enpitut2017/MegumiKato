@@ -31,7 +31,7 @@ class PositionsController < ApplicationController
   def create
     p params
     @position = Position.new(position_params)
-    ActionCable.server.broadcast 'bycycle_channel', message: '{"serial":' +  "#{params[:serial]}, " +  '"latitude":' + "#{params[:latitude]}," + '"longitude":' +  "#{params[:longitude]}}"
+    ActionCable.server.broadcast 'bycycle_channel', message: '{"serial":' + "\"" + params[:serial].to_s + "\", " +  '"latitude":' + "#{params[:latitude]}," + '"longitude":' + "#{params[:longitude]}}"
 
     respond_to do |format|
       if @position.save

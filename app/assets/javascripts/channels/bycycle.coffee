@@ -1,4 +1,3 @@
-maker = null
 map = null
 
 setMap = ->
@@ -26,13 +25,10 @@ App.bycycle = App.cable.subscriptions.create "BycycleChannel",
     json = $.parseJSON(data["message"])
     console.log(json)
     $("#table").append("<td>" + json["serial"] + ", " + json["latitude"] + ", " + json["longitude"] + "</td>")
-    if marker is null
-      marker = new google.maps.Marker(
-        position: new google.maps.LatLng(position.lat, position.lng)
-        map: map
-      )
-    else
-      marker.setPosition(new google.maps.LatLng(position.lat, position.lng))
+    marker = new google.maps.Marker(
+      position: new google.maps.LatLng(json["latitude"], json["longitude"])
+      map: map
+    )
 
 
   submit: (message) ->
