@@ -23,14 +23,21 @@ It is Megumi that is an assistant to protect your bicycle.
 - postgresql (production)
 
 ### Get Started
-```console (without docker)
+- without docker
+```console
 $ git clone https://github.com/enpitut2017/MegumiKato.git
 $ bundle install
 $ bundle exec rails server
 ```
 
-```console (with docker)
+- use docker
+```console
 $ git clone https://github.com/enpitut2017/MegumiKato.git
 $ docker-compose build
 $ docker-compose up
 ```
+
+## Other components
+- [Megumi-Saddle](https://github.com/enpitut2017/MegumiKato_Hardware)
+- [Megumi-App](https://github.com/enpitut2017/MegumiKato_android)
+
