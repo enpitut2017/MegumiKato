@@ -2,27 +2,13 @@
 
 <h1>Positions</h1>
 
-<table>
-  <thead>
-    <tr>
-      <th>Serial</th>
-      <th>Latitude</th>
-      <th>Longitude</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
+<div id="map"></div>
 
+
+<table>
   <tbody>
-    <% @positions.each do |position| %>
-      <tr>
-        <td><%= position.serial %></td>
-        <td><%= position.latitude %></td>
-        <td><%= position.longitude %></td>
-        <td><%= link_to 'Show', position %></td>
-        <td><%= link_to 'Edit', edit_position_path(position) %></td>
-        <td><%= link_to 'Destroy', position, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
+    <tr id="table">
+    </tr>
   </tbody>
 </table>
 
