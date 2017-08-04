@@ -2,7 +2,9 @@ class PositionsController < ApplicationController
   before_action :set_position, only: [:show, :edit, :update, :destroy]
 
   def getpos
-    render :json => {latitude: rand(36.04...36.08), longitude: rand(140.03...140.05)}
+    positions = Position.last(10)
+    render :json => positions.to_json
+    #render :json => {latitude: rand(36.04...36.08), longitude: rand(140.03...140.05)}
   end
 
   # GET /positions
@@ -14,7 +16,6 @@ class PositionsController < ApplicationController
   # GET /positions/1
   # GET /positions/1.json
   def show
-    ActionCable.server.broadcast 'bycycle_channel', message: 'ok'
   end
 
   # GET /positions/new
@@ -29,12 +30,11 @@ class PositionsController < ApplicationController
   # POST /positions
   # POST /positions.json
   def create
-    p params
     @position = Position.new(position_params)
-    ActionCable.server.broadcast 'bycycle_channel', message: '{"serial":' +  "#{params[:serial]}, " +  '"latitude":' + "#{params[:latitude]}," + '"longitude":' +  "#{params[:longitude]}}"
 
     respond_to do |format|
       if @position.save
+        ActionCable.server.broadcast 'bycycle_channel', message: @position.to_json.to_s
         format.html { redirect_to @position, notice: 'Position was successfully created.' }
         format.json { render :show, status: :created, location: @position }
       else
