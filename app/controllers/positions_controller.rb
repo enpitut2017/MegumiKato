@@ -30,7 +30,13 @@ class PositionsController < ApplicationController
   # POST /positions
   # POST /positions.json
   def create
-    @position = Position.new(position_params)
+    raw_lat = params[:latitude].to_s
+    raw_lon = params[:longitude].to_s
+    latitude = raw_lat[0,2].to_f + (raw_lat[2,raw_lat.length-2].to_f / 60.0)
+    longitude = raw_lon[0,3].to_f + (raw_lon[3,raw_lon.length-2].to_f / 60.0)
+    data = data = {serial: params[:serial],latitude: latitude, longitude: longitude} 
+
+    @position = Position.new(data)
 
     respond_to do |format|
       if @position.save
