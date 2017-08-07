@@ -3,8 +3,7 @@ class PositionsController < ApplicationController
 
   def getpos
     positions = Position.last(10)
-    render :json => positions.to_json
-    #render :json => {latitude: rand(36.04...36.08), longitude: rand(140.03...140.05)}
+    render :json => positions.as_json
   end
 
   # GET /positions
