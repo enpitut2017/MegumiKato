@@ -1,4 +1,4 @@
-Megumi-Server by team MegumiKato.
+CyTras-Server by team MegumiKato.
 ====
 We are developing this application for our course (enPiT) in University of Tsukuba.
 Our project's goal is making a device which prevents the user's bicycle from theft.  
@@ -6,11 +6,11 @@ Our project's goal is making a device which prevents the user's bicycle from the
 ## Elevator pitch
 "I am afraid of bicycle theft...😨"  
 "My bicycle is stolen!😡  Where on earth is my bicycle?"  
-We proposed Megumi system to cope with these problems. You use a saddle, which is called Megumi-Saddle, with GPS function. Megumi-Saddle sends positional information by GPS. Thereby, you can easily check the position of your bicycle from your web browser and Android app.  
-It is Megumi that is an assistant to protect your bicycle.
+We proposed CyTras to cope with these problems. You use a saddle, which is called CyTras-Saddle, with GPS function. CyTras-Saddle sends positional information by GPS. Thereby, you can easily check the position of your bicycle from your web browser and Android app.  
+It is CyTras that is an assistant to protect your bicycle.
 
 ## URL
-- [Service URL](https://megumi-kato-20170802.herokuapp.com)
+- [Service URL](http://www12450ue.sakura.ne.jp/positions)
 
 ## Member
 - [Toshiyuki Ando](https://github.com/ToshiyukiAndo)
