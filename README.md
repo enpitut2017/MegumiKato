@@ -9,9 +9,6 @@ Our project's goal is making a device which prevents the user's bicycle from the
 We proposed CyTras to cope with these problems. You use a saddle, which is called CyTras-Saddle, with GPS function. CyTras-Saddle sends positional information by GPS. Thereby, you can easily check the position of your bicycle from your web browser and Android app.  
 It is CyTras that is an assistant to protect your bicycle.
 
-## URL
-- [Service URL](http://www12450ue.sakura.ne.jp/positions)
-
 ## Member
 - [Toshiyuki Ando](https://github.com/ToshiyukiAndo)
 - [Koshi Ikegawa](https://github.com/ikegawa-koshi)
