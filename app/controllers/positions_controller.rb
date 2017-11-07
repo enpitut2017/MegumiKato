@@ -29,17 +29,21 @@ class PositionsController < ApplicationController
   # POST /positions
   # POST /positions.json
   def create
-    raw_lat = params[:latitude].to_s
-    raw_lon = params[:longitude].to_s
-    latitude = raw_lat[0,2].to_f + (raw_lat[2,raw_lat.length-2].to_f / 60.0)
-    longitude = raw_lon[0,3].to_f + (raw_lon[3,raw_lon.length-2].to_f / 60.0)
-    data = data = {serial: params[:serial],latitude: latitude, longitude: longitude} 
+    #raw_lat = params[:latitude].to_s
+    #raw_lon = params[:longitude].to_s
+    #latitude = raw_lat[0,2].to_f + (raw_lat[2,raw_lat.length-2].to_f / 60.0)
+    #longitude = raw_lon[0,3].to_f + (raw_lon[3,raw_lon.length-2].to_f / 60.0)
+    
+    latitude = params[:latitude].to_s
+    longitude = params[:longitude].to_s
+    data = {serial: params[:serial],latitude: latitude, longitude: longitude}
+    sensor_data = {press_zero: params[:press_zero], press_one: params[:press_one], press_two: params[:press_two], press_three: params[:press_three], accel_x: params[:accel_x], accel_y: params[:accel_y], accel_z: params[:accel_z]}
 
     @position = Position.new(data)
 
     respond_to do |format|
       if @position.save
-        ActionCable.server.broadcast 'bycycle_channel', message: @position.to_json.to_s
+        ActionCable.server.broadcast 'bycycle_channel', message: @position.as_json.merge(sensor_data).to_json.to_s
         format.html { redirect_to @position, notice: 'Position was successfully created.' }
         format.json { render :show, status: :created, location: @position }
       else
