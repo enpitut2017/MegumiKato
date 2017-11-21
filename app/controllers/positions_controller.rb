@@ -29,11 +29,14 @@ class PositionsController < ApplicationController
   # POST /positions
   # POST /positions.json
   def create
-    raw_lat = params[:latitude].to_s
-    raw_lon = params[:longitude].to_s
-    latitude = raw_lat[0,2].to_f + (raw_lat[2,raw_lat.length-2].to_f / 60.0)
-    longitude = raw_lon[0,3].to_f + (raw_lon[3,raw_lon.length-2].to_f / 60.0)
-    data = data = {serial: params[:serial],latitude: latitude, longitude: longitude} 
+    #raw_lat = params[:latitude].to_s
+    #raw_lon = params[:longitude].to_s
+    #latitude = raw_lat[0,2].to_f + (raw_lat[2,raw_lat.length-2].to_f / 60.0)
+    #longitude = raw_lon[0,3].to_f + (raw_lon[3,raw_lon.length-2].to_f / 60.0)
+    
+    latitude = params[:latitude].to_s
+    longitude = params[:longitude].to_s
+    data = {serial: params[:serial],latitude: latitude, longitude: longitude, press_zero: params[:press_zero], press_one: params[:press_one], press_two: params[:press_two], press_three: params[:press_three], accel_x: params[:accel_x], accel_y: params[:accel_y], accel_z: params[:accel_z]}
 
     @position = Position.new(data)
 
@@ -81,6 +84,6 @@ class PositionsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def position_params
-      params.require(:position).permit(:serial, :latitude, :longitude)
+      params.require(:position).permit(:serial, :latitude, :longitude, :press_zero, :press_one, :press_two, :press_three, :accel_x, :accel_y, :accel_z)
     end
 end
