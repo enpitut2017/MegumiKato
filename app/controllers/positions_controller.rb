@@ -33,12 +33,26 @@ class PositionsController < ApplicationController
     #raw_lon = params[:longitude].to_s
     #latitude = raw_lat[0,2].to_f + (raw_lat[2,raw_lat.length-2].to_f / 60.0)
     #longitude = raw_lon[0,3].to_f + (raw_lon[3,raw_lon.length-2].to_f / 60.0)
-    
-    latitude = params[:latitude].to_s
-    longitude = params[:longitude].to_s
-    data = {serial: params[:serial],latitude: latitude, longitude: longitude, press_zero: params[:press_zero], press_one: params[:press_one], press_two: params[:press_two], press_three: params[:press_three], accel_x: params[:accel_x], accel_y: params[:accel_y], accel_z: params[:accel_z]}
 
-    @position = Position.new(data)
+    payload = params[:payload]
+    if payload.has_key?(:channels)
+      postdata = payload[:channels]    
+      latitude = postdata[0][:value]
+      longitude = postdata[1][:value]
+      press_zero = postdata[2][:value]
+      press_one = postdata[3][:value]
+      press_two = postdata[4][:value]
+      press_three = postdata[5][:value]
+      accel_x = postdata[6][:value]
+      accel_y = postdata[7][:value]
+      accel_z = postdata[8][:value]
+
+      data = {serial: params[:module], latitude: latitude, longitude: longitude, press_zero: press_zero, press_one: press_one, press_two: press_two, press_three: press_three, accel_x: accel_x, accel_y: accel_y, accel_z: accel_z}
+
+      @position = Position.new(data)
+    else
+      render :nothing => true, :status => 200
+    end
 
     respond_to do |format|
       if @position.save

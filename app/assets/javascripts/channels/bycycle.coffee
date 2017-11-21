@@ -4,21 +4,28 @@ setMap = ->
   current_latitude = 0
   current_longitude = 0
 
-  if navigator.geolocation
-    navigator.geolocation.getCurrentPosition ((pos) ->
-      current_latitude = pos.coords.latitude
-      current_longitude = pos.coords.longitude
+  #if navigator.geolocation
+  #  navigator.geolocation.getCurrentPosition ((pos) ->
+  #    current_latitude = pos.coords.latitude
+  #    current_longitude = pos.coords.longitude
+  #    
+  #    #center = new google.maps.LatLng(38.258595, 137.6850225)
+  #    center = new google.maps.LatLng(current_latitude, current_longitude)
+  #    options =
+  #      zoom: 15
+  #      center: center
+  #      mapTypeId: google.maps.MapTypeId.ROADMAP
+  #
+  #    map = new google.maps.Map(document.getElementById('map'), options)
+  #  ), null*/
       
-      #center = new google.maps.LatLng(38.258595, 137.6850225)
-      center = new google.maps.LatLng(current_latitude, current_longitude)
-      options =
-        zoom: 15
-        center: center
-        mapTypeId: google.maps.MapTypeId.ROADMAP
+  center = new google.maps.LatLng(38.258595, 137.6850225)
+  options =
+    zoom: 15
+    center: center
+    mapTypeId: google.maps.MapTypeId.ROADMAP
 
-      map = new google.maps.Map(document.getElementById('map'), options)
-    ), null
-      
+  map = new google.maps.Map(document.getElementById('map'), options)
   
 
 App.bycycle = App.cable.subscriptions.create "BycycleChannel",
