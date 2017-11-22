@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170802055431) do
+ActiveRecord::Schema.define(version: 20171121152418) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -19,13 +19,13 @@ ActiveRecord::Schema.define(version: 20170802055431) do
     t.string "serial"
     t.float "latitude"
     t.float "longitude"
-    t.float "press_zero"
-    t.float "press_one"
-    t.float "press_two"
-    t.float "press_three"
-    t.float "accel_x"
-    t.float "accel_y"
-    t.float "accel_z"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "todos", force: :cascade do |t|
+    t.string "title"
+    t.string "description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

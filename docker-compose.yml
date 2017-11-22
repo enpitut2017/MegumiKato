@@ -2,6 +2,8 @@ version: '2'
 services:
   db:
     image: postgres
+    ports:
+      - "5432"
     #environment:
     #  MYSQL_ALLOW_EMPTY_PASSWORD: 'true'
     #  MYSQL_ROOT_PASSWORD: hogejiro
@@ -15,3 +17,14 @@ services:
       - "3000:3000"
     depends_on:
       - db
+      - redis
+    environment:
+      RAILS_ENV: production
+      SECRET_KEY_BASE: $RAILS_SECRET_KEY_ENV
+      MYAPP_DATABASE_PASSWORD: $RAILS_DB_PASSWORD_ENV
+      REDIS_URL: redis://redis:6379
+  redis:
+    image: redis:latest
+    ports:
+      - 6379:6379
+
