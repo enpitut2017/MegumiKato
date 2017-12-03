@@ -20,6 +20,7 @@ gem 'bootstrap', '4.0.0.alpha6'
 gem 'jquery-rails'
 gem 'popper_js', '~> 1.12.3'
 gem 'rails-assets-tether', '>= 1.1.0'
+gem 'font-awesome-rails'
 
 # Use Puma as the app server
 gem 'puma', '~> 3.7'
