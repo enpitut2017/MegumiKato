@@ -1,8 +1,5 @@
 Rails.application.routes.draw do
-  resources :positions do
-    collection do
-      get :getpos
-    end
-  end
+  devise_for :users
+  resources :positions, :path => '/'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

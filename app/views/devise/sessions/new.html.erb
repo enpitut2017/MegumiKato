@@ -1,0 +1,47 @@
+  <div class="col-md-4 offset-md-4 login-form">
+    <div class="card">
+      <div class="card-header">
+        <h3 class="card-title">Login</h3>
+      </div>
+      <div class="card-block">
+        <% flash.each do |key, value| %>
+          <div class="<%= flash_class(key) %>">
+            <%= value %>
+          </div>
+        <% end %>
+
+        <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+        <fieldset>
+          <div class="form-group">
+            <div class="input-group">
+              <span class="input-group-addon"><i class="fa fa-user"></i></span>
+              <%= f.email_field :email, autofocus: true, class: "form-control", placeholder: "Email" %>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <div class="input-group">
+              <span class="input-group-addon"><i class="fa fa-lock"></i></span>
+              <%= f.password_field :password, autocomplete: "off", class: "form-control", placeholder: "Password" %>
+            </div>
+          </div>
+
+          <div class="checkbox">
+            <% if devise_mapping.rememberable? -%>
+              <label>
+                <%= f.check_box :remember_me %> Remember Me
+              </label>
+            <% end -%>
+          </div>
+
+          <%= f.submit "Login", class: "btn btn-lg btn-success btn-block" %>
+          <div class="text-right">
+            <%= render "devise/shared/links" %>
+          </div>
+        </fieldset>
+        <% end %>
+      </div>
+    </div>
+  </div>
+
+

@@ -1,27 +1,19 @@
 map = null
 
 setMap = ->
-  current_latitude = 0
-  current_longitude = 0
+  if navigator.geolocation
+    navigator.geolocation.getCurrentPosition ((pos) ->
+      center = new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude)
+      option = 
+        zoom: 15
+        center: center
 
-  #if navigator.geolocation
-  #  navigator.geolocation.getCurrentPosition ((pos) ->
-  #    current_latitude = pos.coords.latitude
-  #    current_longitude = pos.coords.longitude
-  #    
-  #    #center = new google.maps.LatLng(38.258595, 137.6850225)
-  #    center = new google.maps.LatLng(current_latitude, current_longitude)
-  #    options =
-  #      zoom: 15
-  #      center: center
-  #      mapTypeId: google.maps.MapTypeId.ROADMAP
-  #
-  #    map = new google.maps.Map(document.getElementById('map'), options)
-  #  ), null*/
+      map.setOptions(option)
+    ), null
       
-  center = new google.maps.LatLng(38.258595, 137.6850225)
+  center = new google.maps.LatLng(35.6691074,139.6012987)
   options =
-    zoom: 15
+    zoom: 7
     center: center
     mapTypeId: google.maps.MapTypeId.ROADMAP
 

@@ -1,15 +1,59 @@
 <!DOCTYPE html>
-<html>
+<html lang="ja">
   <head>
-    <title>Myapp</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+    <title><%= content_for?(:title) ? yield(:title) : "Cytras" %></title>
     <%= csrf_meta_tags %>
 
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'https://maps.googleapis.com/maps/api/js?key=AIzaSyDVd3ST8h1NBJ81MtddKlIH2fxfNuqfPa4' %>
+    <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+    <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.2/html5shiv.min.js" type="text/javascript"></script>
+    <![endif]-->
   </head>
 
   <body>
-    <%= yield %>
+    <% if !current_user.blank? %>
+      <div id="wrapper">
+        <nav class="navbar navbar-toggleable-md navbar-light bg-faded">
+          <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <a class="navbar-brand" href="/">Cytras</a>
+          <div class="collapse navbar-collapse" id="navbarNavDropdown">
+            <ul class="navbar-nav ml-auto">
+              <li class="nav-item dropdown pull-right">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><%= current_user.email %><b class="caret"></b></a>
+                <ul class="dropdown-menu" role="menu" aria-labelledby="user_menu">
+                  <li class="dropdown-item">
+                    <i class="fa fa-pencil-square-o"> </i>
+                    <%= link_to "Edit", edit_user_registration_path %>
+                  </li>
+                  <li class="dropdown-item">
+                    <i class="fa fa-sign-out"> </i>
+                    <%= link_to "Logout", destroy_user_session_path, method: :delete, role: "menuitem" %>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+        </nav>
+      </div>
+    <% end %>
+
+    <div class="container-fluid">
+      <div class="row">
+        <%= yield %>
+      </div><!--/row-->
+
+      <footer>
+        <p class="text-center copyright">&copy; Kato Megumi 2017</p>
+      </footer>
+
+    </div> <!-- /container -->
   </body>
 </html>
