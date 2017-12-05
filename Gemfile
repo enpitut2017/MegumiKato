@@ -14,6 +14,8 @@ gem 'pg'
 
 gem 'rails_12factor', group: :production
 
+gem 'omniauth-line'
+
 gem 'devise'
 
 gem 'bootstrap', '4.0.0.alpha6'

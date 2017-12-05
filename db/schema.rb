@@ -19,15 +19,14 @@ ActiveRecord::Schema.define(version: 20171122015509) do
     t.string "serial"
     t.float "latitude"
     t.float "longitude"
-    t.float "press_zero"
-    t.float "press_one"
-    t.float "press_two"
-    t.float "press_three"
-    t.float "accel_x"
-    t.float "accel_y"
-    t.float "accel_z"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "press0"
+    t.integer "press1"
+    t.integer "press2"
+    t.integer "press3"
+    t.integer "bend0"
+    t.integer "bend1"
   end
 
   create_table "users", force: :cascade do |t|
