@@ -614,3 +614,9 @@
   background: #666;
   margin: -17px 0 0 5px;
 }
+
+@media only screen and (max-width: 750px) {
+  .cycle-outer{
+    transform: scale(0.5,0.5);
+  }
+}
