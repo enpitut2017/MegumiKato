@@ -22,6 +22,9 @@ gem 'popper_js', '~> 1.12.3'
 gem 'rails-assets-tether', '>= 1.1.0'
 gem 'font-awesome-rails'
 
+gem 'line-bot-api', github: 'stivan622/line-bot-sdk-ruby'
+gem 'dotenv-rails'
+
 # Use Puma as the app server
 gem 'puma', '~> 3.7'
 # Use SCSS for stylesheets
