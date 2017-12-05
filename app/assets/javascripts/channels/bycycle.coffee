@@ -29,8 +29,8 @@ setLoadingAnim = ->
   $("#background").addClass("loading-background")
 
 removeLoadingAnim = ->
-  $("#loading").hide()
-  $("#background").removeClass("loading-background")
+  $('#loading').addClass("loading-slide")
+  $("#background").addClass("loading-slide")
 
 setMap = ->
   if navigator.geolocation

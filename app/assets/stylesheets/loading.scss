@@ -12,6 +12,18 @@
   height: 100%;
   width: 100%;
 }
+.loading-slide {
+  animation: 'loading-slide' 1s ease-out both;
+}
+@keyframes loading-slide {
+  from {
+  }
+  to {
+    transform: translate(0px, 200vh);
+    -webkit-transform: translate(0px, -200vh);
+    display: none;
+  }
+}
 .cycle-outer *{
   border:0;
   font-size:100%;
