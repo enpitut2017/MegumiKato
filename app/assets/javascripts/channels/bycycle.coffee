@@ -24,9 +24,19 @@ setInfoWindow = (data) ->
   window = new google.maps.InfoWindow(option)
   window.open(map)
 
+setLoadingAnim = ->
+  $("#loading").show()
+  $("#background").addClass("loading-background")
+
+removeLoadingAnim = ->
+  $("#loading").hide()
+  $("#background").removeClass("loading-background")
+
 setMap = ->
   if navigator.geolocation
+    setLoadingAnim()
     navigator.geolocation.getCurrentPosition ((pos) ->
+      removeLoadingAnim()
       center = new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude)
       option = 
         zoom: 15
