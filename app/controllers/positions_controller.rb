@@ -1,11 +1,6 @@
 class PositionsController < ApplicationController
   before_action :set_position, only: [:show, :edit, :update, :destroy]
-  before_action :authenticate_user!
-
-  def getpos
-    positions = Position.last(10)
-    render :json => positions.as_json
-  end
+  before_action :authenticate_user!, except: [:create]
 
   # GET /positions
   # GET /positions.json
