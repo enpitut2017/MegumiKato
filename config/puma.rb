@@ -3,7 +3,16 @@
 # Any libraries that use thread pools should be configured to match
 # the maximum value specified for Puma. Default is set to 5 threads for minimum
 # and maximum; this matches the default thread size of Active Record.
-#
+
+app_dir = File.expand_path("../..", __FILE__)
+tmp_dir = "#{app_dir}/tmp"
+rails_env = ENV['RAILS_ENV'] || "staging"
+environment rails_env
+bind "unix://#{tmp_dir}/sockets/puma.sock"
+stdout_redirect "#{tmp_dir}/logs/puma.stdout.log", "#{tmp_dir}/logs/puma.stderr.log", true
+pidfile "#{tmp_dir}/pids/puma.pid"
+state_path "#{tmp_dir}/pids/puma.state"
+
 threads_count = ENV.fetch("RAILS_MAX_THREADS") { 5 }
 threads threads_count, threads_count
 
