@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171214123946) do
+ActiveRecord::Schema.define(version: 20171214211521) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -21,12 +21,13 @@ ActiveRecord::Schema.define(version: 20171214123946) do
     t.float "longitude"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "press0"
-    t.integer "press1"
-    t.integer "press2"
-    t.integer "press3"
-    t.integer "bend0"
-    t.integer "bend1"
+    t.float "press_zero"
+    t.float "press_one"
+    t.float "press_two"
+    t.float "press_three"
+    t.float "accel_x"
+    t.float "accel_y"
+    t.float "accel_z"
   end
 
   create_table "social_profiles", force: :cascade do |t|
