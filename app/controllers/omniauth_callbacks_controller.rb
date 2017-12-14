@@ -21,7 +21,6 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
         # redirect_to edit_user_path(@profile.user.id) and return
       end
     end
-    # TODO 友だち追加のJSONを呼ぶ
     redirect_to :positions
   end
 end
