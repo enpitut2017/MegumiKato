@@ -1,5 +1,10 @@
 Rails.application.routes.draw do
   devise_for :users
+  resources :bicycles do
+    member do
+      get :image
+    end
+  end
   resources :positions, :path => '/'
   post '/callback' => 'linebot#callback'
   mount ActionCable.server => '/cable'

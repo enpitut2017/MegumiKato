@@ -1,0 +1,23 @@
+<p id="notice"><%= notice %></p>
+
+<div class="col-md-6 offset-md-3">
+  <table class="table">
+    <tbody>
+      <% @bicycles.each do |bicycle| %>
+        <tr>
+          <td>
+            <% if bicycle.image_url(:thumb).present? %>
+              <%= image_tag image_bicycle_path(bicycle), class: "img-thumbnail" %>
+            <% end %>
+          </td>
+          <td><%= bicycle.serial %></td>
+          <td><%= bicycle.name %></td>
+          <td><%= link_to 'Show', bicycle %></td>
+          <td><%= link_to 'Edit', edit_bicycle_path(bicycle) %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+
+<%= link_to 'New Bicycle', new_bicycle_path %>

@@ -16,6 +16,9 @@ gem 'rails_12factor', group: :production
 
 gem 'devise'
 
+gem 'carrierwave'
+gem 'rmagick'
+
 gem 'bootstrap', '4.0.0.alpha6'
 gem 'jquery-rails'
 gem 'popper_js', '~> 1.12.3'
