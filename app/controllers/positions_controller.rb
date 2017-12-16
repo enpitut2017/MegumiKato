@@ -32,7 +32,7 @@ class PositionsController < ApplicationController
 
     payload = params[:payload]
     if payload.has_key?(:channels)
-      postdata = payload[:channels]    
+      postdata = payload[:channels]
       latitude = postdata[0][:value]
       longitude = postdata[1][:value]
       press_zero = postdata[2][:value]
@@ -44,6 +44,15 @@ class PositionsController < ApplicationController
       accel_z = postdata[8][:value]
 
       data = {serial: params[:module], latitude: latitude, longitude: longitude, press_zero: press_zero, press_one: press_one, press_two: press_two, press_three: press_three, accel_x: accel_x, accel_y: accel_y, accel_z: accel_z}
+
+      if $status == true && Math.sqrt(accel_x * accel_x + accel_y * accel_y + accel_z * accel_z) >= 1.1
+        require 'rest-client'
+        RestClient::Request.execute(method: :post,
+                        url: 'https://api.line.me/v2/bot/message/push',
+                        payload: '{"to": "U44e2220a2191aef2d2381e506906cb74","messages":[{"type":"text","text":"自転車が移動しています！"},{"type":"text","text":"https://cytras.info"}]}',
+                        headers: {"Content-Type" => "application/json", "Authorization" => "Bearer {h9mipasfezeCZbzrRk4uy5ZtiTKhz1o6QdxxgPX2m9M8PIHzcS02UpMuTc8bVdUR4DVVxbh9AehQazWD6aV2PmVuvOTuXJuZw558BQ3busEWZoENkpYhu98SLKvn9V8BaoDkIUhQP0EuGp1bE1gAWAdB04t89/1O/w1cDnyilFU=}"}
+                       )
+      end
 
       @position = Position.new(data)
     else

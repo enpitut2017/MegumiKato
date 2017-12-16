@@ -24,6 +24,10 @@ gem 'font-awesome-rails'
 
 gem 'line-bot-api', github: 'stivan622/line-bot-sdk-ruby'
 gem 'dotenv-rails'
+gem 'rest-client'
+# Use for OmniAuth
+gem 'omniauth-line'
+gem 'faker'
 
 # Use Puma as the app server
 gem 'puma', '~> 3.7'

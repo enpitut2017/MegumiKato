@@ -1,5 +1,7 @@
 class LinebotController < ApplicationController
   require 'line/bot'
+  require 'rest-client'
+
   protect_from_forgery :except => [:callback]
 
   $status = false
