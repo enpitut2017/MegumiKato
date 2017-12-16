@@ -1,5 +1,7 @@
 class LinebotController < ApplicationController
   require 'line/bot'
+  require 'rest-client'
+
   protect_from_forgery :except => [:callback]
 
   $status = false
@@ -36,8 +38,6 @@ class LinebotController < ApplicationController
               text: '警備を開始します'
             }
             $status = true
-            @security_pos = Position.last(1);
-            @security_pos.save
             # TODO 警戒状態にする
           elsif (/警備/ =~ event.message['text'] || /始/ =~ event.message['text']) && $status == true then
             message = {

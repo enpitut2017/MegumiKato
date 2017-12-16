@@ -45,6 +45,15 @@ class PositionsController < ApplicationController
 
       data = {serial: params[:module], latitude: latitude, longitude: longitude, press_zero: press_zero, press_one: press_one, press_two: press_two, press_three: press_three, accel_x: accel_x, accel_y: accel_y, accel_z: accel_z}
 
+      if $status == true && Math.sqrt(accel_x * accel_x + accel_y * accel_y + accel_z * accel_z) >= 1.1
+        require 'rest-client'
+        RestClient::Request.execute(method: :post,
+                        url: 'https://api.line.me/v2/bot/message/push',
+                        payload: '{"to": "U44e2220a2191aef2d2381e506906cb74","messages":[{"type":"text","text":"自転車が移動しています！"},{"type":"text","text":"https://cytras.info"}]}',
+                        headers: {"Content-Type" => "application/json", "Authorization" => "Bearer {h9mipasfezeCZbzrRk4uy5ZtiTKhz1o6QdxxgPX2m9M8PIHzcS02UpMuTc8bVdUR4DVVxbh9AehQazWD6aV2PmVuvOTuXJuZw558BQ3busEWZoENkpYhu98SLKvn9V8BaoDkIUhQP0EuGp1bE1gAWAdB04t89/1O/w1cDnyilFU=}"}
+                       )
+      end
+
       @position = Position.new(data)
     else
       render :nothing => true, :status => 200
@@ -59,26 +68,6 @@ class PositionsController < ApplicationController
         format.html { render :new }
         format.json { render json: @position.errors, status: :unprocessable_entity }
       end
-    end
-
-    # @range = 6378137 * Math.acos( Math.sin(@security_pos[:longitude]) * Math.sin(@position[:longitude]) - Math.cos(@security_pos[:longitude]) * Math.cos(@position[:longitude]) * Math.cos(@security_pos[:latitude] - @position[:latitude]) )
-
-    y1 = @security_pos.latitude * Math::PI / 180
-  	x1 = @security_pos.longitue * Math::PI / 180
-  	y2 = @position.latitude * Math::PI / 180
-  	x2 = @position.longitue * Math::PI / 180
-  	earth_r = 6378140
-
-  	deg = Math::sin(y1) * Math::sin(y2) + Math::cos(y1) * Math::cos(y2) * Math::cos(x2 - x1)
-  	distance = earth_r * (Math::atan(-deg / Math::sqrt(-deg * deg + 1)) + Math::PI / 2) / 1000
-
-    if $status == true && @distance > 30.0 then
-      require 'rest-client'
-      RestClient::Request.execute(method: :post,
-                      url: 'https://api.line.me/v2/bot/message/push',
-                      payload: '{"to": "U44e2220a2191aef2d2381e506906cb74","messages":[{"type":"text","text":"自転車が移動しています！"},{"type":"text","text":"https://cytras.info"}]}',
-                      headers: {"Content-Type" => "application/json", "Authorization" => "Bearer {h9mipasfezeCZbzrRk4uy5ZtiTKhz1o6QdxxgPX2m9M8PIHzcS02UpMuTc8bVdUR4DVVxbh9AehQazWD6aV2PmVuvOTuXJuZw558BQ3busEWZoENkpYhu98SLKvn9V8BaoDkIUhQP0EuGp1bE1gAWAdB04t89/1O/w1cDnyilFU=}"}
-                     )
     end
   end
 
