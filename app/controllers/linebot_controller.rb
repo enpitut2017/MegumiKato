@@ -57,7 +57,7 @@ class LinebotController < ApplicationController
             message = {
               type: 'text',
               # text: event.message['text']
-              text: "#{current_status ? 警戒中です : 警備していません}"
+              text: current_status ? '警戒中です' : '警備していません'
             }
           end
           response = client.reply_message(event['replyToken'], message)

@@ -8,8 +8,7 @@ setDOM = (data) ->
       <h4 class="card-title">#{data["serial"]}</h4>
       <ul class="list-group list-group-flush">
         <li class="list-group-item">#{data["latitude"]}, #{data["longitude"]}</li>
-        <li class="list-group-item">#{data["press_zero"]}, #{data["press_one"]}, #{data["press_two"]}, #{data["press_three"]}</li>
-        <li class="list-group-item">#{data["accel_x"]}, #{data["accel_y"]}, #{data["accel_z"]}</li>
+        <li class="list-group-item">#{data["bicycle"]["status"] ? 警戒中 : 無防備}</li>
       </ul>
       <p class="card-text"><small class="text-muted">#{data["created_at"]}</small></p>
     </div>
@@ -38,7 +37,7 @@ setMap = ->
     navigator.geolocation.getCurrentPosition ((pos) ->
       removeLoadingAnim()
       center = new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude)
-      option = 
+      option =
         zoom: 15
         center: center
 

@@ -63,7 +63,7 @@ class PositionsController < ApplicationController
 
     respond_to do |format|
       if @position.save
-        ActionCable.server.broadcast 'bycycle_channel', message: @position.to_json.to_s
+        ActionCable.server.broadcast 'bycycle_channel', message: @position.to_json(include: :bicycle).to_s
         format.html { redirect_to @position, notice: 'Position was successfully created.' }
         format.json { render :show, status: :created, location: @position }
       else
