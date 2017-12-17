@@ -44,7 +44,7 @@ setMap = ->
 
       map.setOptions(option)
     ), null
-      
+
   center = new google.maps.LatLng(35.6691074,139.6012987)
   options =
     zoom: 7
@@ -52,7 +52,7 @@ setMap = ->
     mapTypeId: google.maps.MapTypeId.ROADMAP
 
   map = new google.maps.Map(document.getElementById('map'), options)
-  
+
 
 App.bycycle = App.cable.subscriptions.create "BycycleChannel",
   connected: ->
@@ -83,10 +83,8 @@ App.bycycle = App.cable.subscriptions.create "BycycleChannel",
     google.maps.event.addListener(marker, "click", (event) ->
       setInfoWindow(json)
     )
-      
+
 
 
   submit: (message) ->
      @perform 'submit', message: message
-
-
