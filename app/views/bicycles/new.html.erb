@@ -1,1 +1,46 @@
-<%= render 'form', bicycle: @bicycle %>
+<div class="col-md-4 offset-md-4 login-form">
+  <div class="card">
+    <div class="card-header">
+      <h3 class="card-title">New Bicycle</h3>
+    </div>
+    <div class="card-block">
+      <%= form_with(model: @bicycle, local: true) do |f| %>
+        <% if @bicycle.errors.any? %>
+          <div id="error_explanation">
+            <h2><%= pluralize(@bicycle.errors.count, "error") %> prohibited this @bicycle from being saved:</h2>
+
+            <ul>
+            <% @bicycle.errors.full_messages.each do |message| %>
+              <li><%= message %></li>
+            <% end %>
+            </ul>
+          </div>
+        <% end %>
+
+        <fieldset>
+          <div class="form-group">
+            <div class="input-group">
+              <span class="input-group-addon"><i class="fa fa-key"></i></span>
+              <%= f.text_field :serial, autofocus: true, class: "form-control", placeholder: "Serial Number" %>
+            </div>
+          </div>
+
+           <div class="form-group">
+            <div class="input-group">
+              <span class="input-group-addon"><i class="fa fa-info"></i></span>
+              <%= f.text_field :name, autofocus: true, class: "form-control", placeholder: "Name" %>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <div class="input-group">
+              <span class="input-group-addon"><i class="fa fa-file"></i></span>
+              <%= f.file_field :image, autofocus: true, class: "form-control", placeholder: "Image" %>
+            </div>
+          </div>
+          <%= f.submit "Register", class: "btn btn-lg btn-success btn-block" %>
+        </fieldset>
+      <% end %>
+    </div>
+  </div>
+</div>

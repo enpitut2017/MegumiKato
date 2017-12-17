@@ -1,23 +1,24 @@
 <p id="notice"><%= notice %></p>
 
-<div class="col-md-6 offset-md-3">
-  <table class="table">
-    <tbody>
-      <% @bicycles.each do |bicycle| %>
-        <tr>
-          <td>
-            <% if bicycle.image_url(:thumb).present? %>
-              <%= image_tag image_bicycle_path(bicycle), class: "img-thumbnail" %>
-            <% end %>
-          </td>
-          <td><%= bicycle.serial %></td>
-          <td><%= bicycle.name %></td>
-          <td><%= link_to 'Show', bicycle %></td>
-          <td><%= link_to 'Edit', edit_bicycle_path(bicycle) %></td>
-        </tr>
-      <% end %>
-    </tbody>
-  </table>
-</div>
+<div class="bicycle-list col-md-8 offset-md-2">
+  <% @bicycles.each do |bicycle| %>
+    <div class="card">
+      <div class="row">
+      <div class="col-md-4">
+        <% if bicycle.image_url(:thumb).present? %>
+          <%= image_tag image_bicycle_path(bicycle), class: "img-fluid" %>
+        <% end %>
+      </div>
+      <div class="col-md-8">
+        <div class="card-block">
+          <h5><%= bicycle.name %></h5>
+          <p><%= bicycle.serial %></p>
+          <p><%= link_to '詳細', bicycle, class: "btn btn-primary" %> <%= link_to '編集', edit_bicycle_path(bicycle), class: "btn btn-primary" %></p>
+        </div>
+      </div>
+    </div>
+    </div>
+  <% end %>
 
-<%= link_to 'New Bicycle', new_bicycle_path %>
+  <%= link_to '新規登録', new_bicycle_path, class: "pull-right" %>
+</div>

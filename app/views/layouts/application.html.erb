@@ -37,6 +37,10 @@
                     <i class="fa fa-sign-out"> </i>
                     <%= link_to "Logout", destroy_user_session_path, method: :delete, role: "menuitem" %>
                   </li>
+                  <li class="dropdown-item">
+                    <i class="fa fa-bicycle"> </i>
+                    <%= link_to "Bicycles", bicycles_path %>
+                  </li>
                 </ul>
               </li>
             </ul>
