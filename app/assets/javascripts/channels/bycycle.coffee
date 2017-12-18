@@ -1,6 +1,8 @@
 map = null
 
 setDOM = (data) ->
+  status = $.parseJSON(data["bicycle"])["status"]
+
   """
   <div class="card" style="width: 20rem;">
     <img class="card-img-top" src="http://via.placeholder.com/350x150" alt="">
@@ -8,7 +10,7 @@ setDOM = (data) ->
       <h4 class="card-title">#{data["serial"]}</h4>
       <ul class="list-group list-group-flush">
         <li class="list-group-item">#{data["latitude"]}, #{data["longitude"]}</li>
-        <li class="list-group-item">#{data["bicycle"]["status"] ? 警戒中 : 非警戒中}</li>
+        <li class="list-group-item">#{if status then "警戒中" else "非警戒中"}</li>
       </ul>
       <p class="card-text"><small class="text-muted">#{data["created_at"]}</small></p>
     </div>
