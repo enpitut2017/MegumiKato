@@ -1,0 +1,23 @@
+<p id="notice"><%= notice %></p>
+
+<div class="bicycle-list col-md-8 offset-md-2">
+  <div class="card">
+    <div class="row">
+      <div class="col-md-4">
+        <% if @bicycle.image_url(:thumb).present? %>
+          <%= image_tag image_bicycle_path(@bicycle), class: "img-fluid" %>
+        <% end %>
+      </div>
+      <div class="col-md-8">
+        <div class="card-block">
+          <h5><%= @bicycle.name %></h5>
+          <p><%= @bicycle.serial %></p>
+          <p><%= link_to '編集', edit_bicycle_path(@bicycle), class: "btn btn-primary" %></p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <%= link_to '新規登録', new_bicycle_path, class: "pull-right" %>
+</div>
+
+
