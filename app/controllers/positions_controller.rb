@@ -45,23 +45,25 @@ class PositionsController < ApplicationController
 
       data = {serial: params[:module], latitude: latitude, longitude: longitude, press_zero: press_zero, press_one: press_one, press_two: press_two, press_three: press_three, accel_x: accel_x, accel_y: accel_y, accel_z: accel_z}
 
-      if $status == true && Math.sqrt(accel_x * accel_x + accel_y * accel_y + accel_z * accel_z) >= 1.1
+      @position = Position.new(data)
+
+      if @position.bicycle.status == true && Math.sqrt(accel_x * accel_x + accel_y * accel_y + accel_z * accel_z) >= 0.7
         require 'rest-client'
+        uid = @position.bicycle.user.social_profile.find_by(provider: 'line').first.uid
+
         RestClient::Request.execute(method: :post,
                         url: 'https://api.line.me/v2/bot/message/push',
-                        payload: '{"to": "U44e2220a2191aef2d2381e506906cb74","messages":[{"type":"text","text":"自転車が移動しています！"},{"type":"text","text":"https://cytras.info"}]}',
-                        headers: {"Content-Type" => "application/json", "Authorization" => "Bearer {h9mipasfezeCZbzrRk4uy5ZtiTKhz1o6QdxxgPX2m9M8PIHzcS02UpMuTc8bVdUR4DVVxbh9AehQazWD6aV2PmVuvOTuXJuZw558BQ3busEWZoENkpYhu98SLKvn9V8BaoDkIUhQP0EuGp1bE1gAWAdB04t89/1O/w1cDnyilFU=}"}
+                        payload: {"to": "#{uid}","messages":[{"type":"text","text":"自転車が移動しています！"},{"type":"text","text":"https://cytras.info"}]},
+                        headers: {"Content-Type" => "application/json", "Authorization" => "Bearer {#{'LINE_CHANNEL_TOKEN'}}"}
                        )
       end
-
-      @position = Position.new(data)
     else
       render :nothing => true, :status => 200
     end
 
     respond_to do |format|
       if @position.save
-        ActionCable.server.broadcast 'bycycle_channel', message: @position.to_json.to_s
+        ActionCable.server.broadcast 'bycycle_channel', message: @position.to_json(include: :bicycle).to_s
         format.html { redirect_to @position, notice: 'Position was successfully created.' }
         format.json { render :show, status: :created, location: @position }
       else

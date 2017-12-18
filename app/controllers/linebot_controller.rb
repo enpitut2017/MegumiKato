@@ -11,7 +11,8 @@ class LinebotController < ApplicationController
 
     signature = request.env['HTTP_X_LINE_SIGNATURE']
     unless client.validate_signature(body, signature)
-      error 400 do 'Bad Request' end
+      head :bad_request
+      return
     end
 
     events = client.parse_events_from(body)
@@ -20,26 +21,39 @@ class LinebotController < ApplicationController
       when Line::Bot::Event::Message
         case event.type
         when Line::Bot::Event::MessageType::Text
-          if /終/ =~ event.message['text'] && $status == true then
+          profile = SocialProfile.where(provider: 'line', uid: event.source['userId']).first
+          current_status = profile.user.bicycles.first.status
+          if profile.user.bicycles.first.nil? then
+            message = {
+              type: 'text',
+              text: '自転車が登録されていません'
+            }
+          elsif /終/ =~ event.message['text'] && current_status == true then
             message = {
               type: 'text',
               text: '警備を終了します'
             }
-            $status = false
             # TODO 警戒状態をやめる
-          elsif /終/ =~ event.message['text'] && $status == false then
+            profile.user.bicycles.each { |bicycle|
+              bicycle.status = false
+              bicycle.save
+            }
+          elsif /終/ =~ event.message['text'] && current_status == false then
             message = {
               type: 'text',
               text: '警備していません'
             }
-          elsif (/警備/ =~ event.message['text'] || /始/ =~ event.message['text']) && $status == false then
+          elsif (/警備/ =~ event.message['text'] || /始/ =~ event.message['text']) && current_status == false then
             message = {
               type: 'text',
               text: '警備を開始します'
             }
-            $status = true
             # TODO 警戒状態にする
-          elsif (/警備/ =~ event.message['text'] || /始/ =~ event.message['text']) && $status == true then
+            profile.user.bicycles.each { |bicycle|
+              bicycle.status = true
+              bicycle.save
+            }
+          elsif (/警備/ =~ event.message['text'] || /始/ =~ event.message['text']) && current_status == true then
             message = {
               type: 'text',
               text: '警備中です'
@@ -47,7 +61,8 @@ class LinebotController < ApplicationController
           else
             message = {
               type: 'text',
-              text: event.message['text']
+              # text: event.message['text']
+              text: current_status ? '警戒中です' : '警備していません'
             }
           end
           response = client.reply_message(event['replyToken'], message)
