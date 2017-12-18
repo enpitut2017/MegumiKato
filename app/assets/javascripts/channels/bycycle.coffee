@@ -8,8 +8,7 @@ setDOM = (data) ->
       <h4 class="card-title">#{data["serial"]}</h4>
       <ul class="list-group list-group-flush">
         <li class="list-group-item">#{data["latitude"]}, #{data["longitude"]}</li>
-        <li class="list-group-item">#{data["press_zero"]}, #{data["press_one"]}, #{data["press_two"]}, #{data["press_three"]}</li>
-        <li class="list-group-item">#{data["accel_x"]}, #{data["accel_y"]}, #{data["accel_z"]}</li>
+        <li class="list-group-item">#{data["bicycle"]["status"] ? 警戒中 : 非警戒中}</li>
       </ul>
       <p class="card-text"><small class="text-muted">#{data["created_at"]}</small></p>
     </div>
@@ -38,13 +37,13 @@ setMap = ->
     navigator.geolocation.getCurrentPosition ((pos) ->
       removeLoadingAnim()
       center = new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude)
-      option = 
+      option =
         zoom: 15
         center: center
 
       map.setOptions(option)
     ), null
-      
+
   center = new google.maps.LatLng(35.6691074,139.6012987)
   options =
     zoom: 7
@@ -52,7 +51,7 @@ setMap = ->
     mapTypeId: google.maps.MapTypeId.ROADMAP
 
   map = new google.maps.Map(document.getElementById('map'), options)
-  
+
 
 App.bycycle = App.cable.subscriptions.create "BycycleChannel",
   connected: ->
@@ -83,10 +82,8 @@ App.bycycle = App.cable.subscriptions.create "BycycleChannel",
     google.maps.event.addListener(marker, "click", (event) ->
       setInfoWindow(json)
     )
-      
+
 
 
   submit: (message) ->
      @perform 'submit', message: message
-
-

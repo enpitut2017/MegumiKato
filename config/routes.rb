@@ -2,6 +2,11 @@ Rails.application.routes.draw do
   devise_for :users, controllers: {
     omniauth_callbacks: "omniauth_callbacks"
   }
+  resources :bicycles do
+    member do
+      get :image
+    end
+  end
   resources :positions, :path => '/' 
   post '/callback' => 'linebot#callback'
   mount ActionCable.server => '/cable'
