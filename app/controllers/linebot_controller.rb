@@ -21,7 +21,8 @@ class LinebotController < ApplicationController
       when Line::Bot::Event::Message
         case event.type
         when Line::Bot::Event::MessageType::Text
-          profile = SocialProfile.where(provider: 'line', uid: event.source['userId']).first
+          profile = SocialProfile.where(provider: 'line', uid: event['source']['userId']).first
+          return if profile.blank?
           current_status = profile.user.bicycles.first.status
           if profile.user.bicycles.first.nil? then
             message = {
