@@ -23,7 +23,12 @@ class LinebotController < ApplicationController
         when Line::Bot::Event::MessageType::Text
           profile = SocialProfile.where(provider: 'line', uid: event.source['userId']).first
           current_status = profile.user.bicycles.first.status
-          if /終/ =~ event.message['text'] && current_status == true then
+          if profile.user.bicycles.first.nil? then
+            message = {
+              type: 'text',
+              text: '自転車が登録されていません'
+            }
+          elsif /終/ =~ event.message['text'] && current_status == true then
             message = {
               type: 'text',
               text: '警備を終了します'
