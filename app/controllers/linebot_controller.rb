@@ -29,7 +29,7 @@ class LinebotController < ApplicationController
               text: '警備を終了します'
             }
             # TODO 警戒状態をやめる
-            profile.user.bicycles.each { |bycycle|
+            profile.user.bicycles.each { |bicycle|
               bicycle.status = false
               bicycle.save
             }
@@ -44,7 +44,7 @@ class LinebotController < ApplicationController
               text: '警備を開始します'
             }
             # TODO 警戒状態にする
-            profile.user.bicycles.each { |bycycle|
+            profile.user.bicycles.each { |bicycle|
               bicycle.status = true
               bicycle.save
             }

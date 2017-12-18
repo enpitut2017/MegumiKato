@@ -8,7 +8,7 @@ setDOM = (data) ->
       <h4 class="card-title">#{data["serial"]}</h4>
       <ul class="list-group list-group-flush">
         <li class="list-group-item">#{data["latitude"]}, #{data["longitude"]}</li>
-        <li class="list-group-item">#{data["bicycle"]["status"] ? 警戒中 : 無防備}</li>
+        <li class="list-group-item">#{data["bicycle"]["status"] ? 警戒中 : 非警戒中}</li>
       </ul>
       <p class="card-text"><small class="text-muted">#{data["created_at"]}</small></p>
     </div>
