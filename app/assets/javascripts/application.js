@@ -14,8 +14,9 @@
 //= require jquery_ujs
 //= require rails-ujs
 //= require turbolinks
-//= require jquery3
+//= require jquery2
 //= require tether
 //= require bootstrap
 //= require popper
+//= require waypoints.min
 //= require_tree .

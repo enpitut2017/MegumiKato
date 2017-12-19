@@ -20,7 +20,11 @@
 
 <%- if devise_mapping.omniauthable? %>
   <%- resource_class.omniauth_providers.each do |provider| %>
-    <%= link_to "Sign in with #{OmniAuth::Utils.camelize(provider)}", omniauth_authorize_path(resource_name, provider) %>
+    <%- if OmniAuth::Utils.camelize(provider) == 'Line' then %>
+      <%= link_to omniauth_authorize_path(resource_name, provider) do %>
+        <button class="btn btn-success"><i class="fa c-fa-line"></i> LINEでログイン</button>
+      <% end %>
+    <% end %>
     <%#= link_to "Sign in with #{OmniAuth::Utils.camelize(provider)}", "https://access.line.me/oauth2/v2.1/authorize?client_id=1551876311&redirect_uri=https%3A%2F%2Fd08628e7.ngrok.io%2Fusers%2Fauth%2Fline%2Fcallback&response_type=code&scope=profile+openid&bot_prompt=aggressive&state=test" %>
 <%#    <div class="line-it-button" data-lang="ja" data-type="friend" data-lineid="pbg5476s" data-count="true" data-home="true" style="display: none;"></div>
  <script src="https://d.line-scdn.net/r/web/social-plugin/js/thirdparty/loader.min.js" async="async" defer="defer"></script> %><br />
