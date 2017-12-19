@@ -1,3 +1,5 @@
+require 'line/bot'
+
 class PositionsController < ApplicationController
   before_action :set_position, only: [:show, :edit, :update, :destroy]
   before_action :authenticate_user!, except: [:create]
@@ -45,16 +47,29 @@ class PositionsController < ApplicationController
 
       data = {serial: params[:module], latitude: latitude, longitude: longitude, press_zero: press_zero, press_one: press_one, press_two: press_two, press_three: press_three, accel_x: accel_x, accel_y: accel_y, accel_z: accel_z}
 
-      if $status == true && Math.sqrt(accel_x * accel_x + accel_y * accel_y + accel_z * accel_z) >= 1.1
-        require 'rest-client'
-        RestClient::Request.execute(method: :post,
-                        url: 'https://api.line.me/v2/bot/message/push',
-                        payload: '{"to": "U44e2220a2191aef2d2381e506906cb74","messages":[{"type":"text","text":"自転車が移動しています！"},{"type":"text","text":"https://cytras.info"}]}',
-                        headers: {"Content-Type" => "application/json", "Authorization" => "Bearer {h9mipasfezeCZbzrRk4uy5ZtiTKhz1o6QdxxgPX2m9M8PIHzcS02UpMuTc8bVdUR4DVVxbh9AehQazWD6aV2PmVuvOTuXJuZw558BQ3busEWZoENkpYhu98SLKvn9V8BaoDkIUhQP0EuGp1bE1gAWAdB04t89/1O/w1cDnyilFU=}"}
-                       )
-      end
-
       @position = Position.new(data)
+
+      @position.bicycle = Bicycle.where(serial: params[:module]).first
+      if @position.bicycle.status == true && Math.sqrt(accel_x.to_f * accel_x.to_f + accel_y.to_f * accel_y.to_f + accel_z.to_f * accel_z.to_f) >= 0.7
+        require 'rest-client'
+        uid = @position.bicycle.user.social_profiles.where(provider: 'line').first.uid
+
+        message = [{
+          type: 'text',
+          text: '自転車が移動しています！'
+        },
+        {
+          type: 'text',
+          text: 'https://cytras.info'
+        }]
+	client = Line::Bot::Client.new { |config|
+	    config.channel_secret = ENV['LINE_CHANNEL_SECRET']
+	    config.channel_token = ENV['LINE_CHANNEL_TOKEN']
+	}
+	response = client.push_message("#{uid}", message)
+	p response
+
+      end
     else
       render :nothing => true, :status => 200
     end
