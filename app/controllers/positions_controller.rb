@@ -50,7 +50,7 @@ class PositionsController < ApplicationController
       @position = Position.new(data)
 
       @position.bicycle = Bicycle.where(serial: params[:module]).first
-      if @position.bicycle.status == true && Math.sqrt(accel_x.to_f * accel_x.to_f + accel_y.to_f * accel_y.to_f + accel_z.to_f * accel_z.to_f) >= 0.7
+      if @position.bicycle.status == true && Math.sqrt(accel_x.to_f * accel_x.to_f + accel_y.to_f * accel_y.to_f + accel_z.to_f * accel_z.to_f) >= 1.2
         require 'rest-client'
         uid = @position.bicycle.user.social_profiles.where(provider: 'line').first.uid
 
